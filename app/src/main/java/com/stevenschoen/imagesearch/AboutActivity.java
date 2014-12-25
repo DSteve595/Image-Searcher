@@ -50,7 +50,8 @@ public class AboutActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent githubIntent = new Intent(Intent.ACTION_VIEW);
-                githubIntent.setData(Uri.parse())
+                githubIntent.setData(Uri.parse("https://github.com/DSteve595/Image-Searcher"));
+                startActivity(githubIntent);
             }
         });
 
