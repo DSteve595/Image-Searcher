@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Image Search</string>
+    <string name="app_name">Image Searcher</string>
     <string name="search_images">Search images</string>
     <string name="select">Select</string>
     <string name="about">About</string>

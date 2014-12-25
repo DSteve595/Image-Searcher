@@ -138,9 +138,14 @@ public class MainActivity extends ActionBarActivity {
             protected SearchResponse doInBackground(Void... nothing) {
                 try {
                     return searchInterface.search(query, SearchInterface.SEARCH_TYPE_IMAGE);
-                } catch (RetrofitError e) {
+                } catch (final RetrofitError e) {
                     e.printStackTrace();
-                    Toast.makeText(MainActivity.this, "API Error: " + e.getResponse().getReason(), Toast.LENGTH_LONG).show();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this, "API Error: " + e.getResponse().getReason(), Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
 
                 return null;
