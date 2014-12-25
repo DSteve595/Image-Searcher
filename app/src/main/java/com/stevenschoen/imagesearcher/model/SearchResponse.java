@@ -1,4 +1,4 @@
-package com.stevenschoen.imagesearch.model;
+package com.stevenschoen.imagesearcher.model;
 
 public class SearchResponse {
     public ImageResult[] items;

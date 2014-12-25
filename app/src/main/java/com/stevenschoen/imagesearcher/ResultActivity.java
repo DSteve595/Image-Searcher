@@ -1,4 +1,4 @@
-package com.stevenschoen.imagesearch;
+package com.stevenschoen.imagesearcher;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
-import com.stevenschoen.imagesearch.model.ImageResult;
+import com.stevenschoen.imagesearcher.model.ImageResult;
 
 import java.util.List;
 

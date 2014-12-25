@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.stevenschoen.imagesearch;
+package com.stevenschoen.imagesearcher;
 
 import android.app.Fragment;
 import android.app.FragmentManager;

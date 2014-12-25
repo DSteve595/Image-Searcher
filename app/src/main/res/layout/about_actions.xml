@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/holder_fileinfo"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,6 +13,7 @@
         android:id="@+id/about_actions_rate_holder"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="8dp"
@@ -41,6 +41,7 @@
         android:id="@+id/about_actions_github_holder"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="8dp"

@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
 
-import com.stevenschoen.imagesearch.R;
+import com.stevenschoen.imagesearcher.R;
 
 /**
  * A custom Text View that lowers the text size when the text is to big for the TextView. Modified version of one found on stackoverflow

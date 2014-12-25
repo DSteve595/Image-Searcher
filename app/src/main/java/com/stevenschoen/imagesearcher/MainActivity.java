@@ -1,4 +1,4 @@
-package com.stevenschoen.imagesearch;
+package com.stevenschoen.imagesearcher;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,11 +20,12 @@ import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.stevenschoen.imagesearch.model.ImageResult;
-import com.stevenschoen.imagesearch.model.SearchResponse;
+import com.stevenschoen.imagesearcher.model.ImageResult;
+import com.stevenschoen.imagesearcher.model.SearchResponse;
 
 import org.apache.commons.io.FileUtils;
 
@@ -35,6 +36,7 @@ import java.util.Collections;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import retrofit.RetrofitError;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -134,7 +136,14 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             protected SearchResponse doInBackground(Void... nothing) {
-                return searchInterface.search(query, SearchInterface.SEARCH_TYPE_IMAGE);
+                try {
+                    return searchInterface.search(query, SearchInterface.SEARCH_TYPE_IMAGE);
+                } catch (RetrofitError e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "API Error: " + e.getResponse().getReason(), Toast.LENGTH_LONG).show();
+                }
+
+                return null;
             }
 
             @Override
@@ -196,7 +205,7 @@ public class MainActivity extends ActionBarActivity {
             public void onCompleted(Exception e, File result) {
                 Uri uri = FileProvider.getUriForFile(
                         MainActivity.this,
-                        "com.stevenschoen.imagesearch.fileprovider",
+                        "com.stevenschoen.imagesearcher.fileprovider",
                         destinationFile);
 
                 Intent intent = new Intent();

@@ -1,4 +1,4 @@
-package com.stevenschoen.imagesearch;
+package com.stevenschoen.imagesearcher;
 
 import android.annotation.TargetApi;
 import android.graphics.Outline;

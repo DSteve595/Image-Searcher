@@ -1,7 +1,7 @@
-package com.stevenschoen.imagesearch;
+package com.stevenschoen.imagesearcher;
 
-import com.stevenschoen.imagesearch.model.ImageResult;
-import com.stevenschoen.imagesearch.model.SearchResponse;
+import com.stevenschoen.imagesearcher.model.ImageResult;
+import com.stevenschoen.imagesearcher.model.SearchResponse;
 
 public class FakeSearchInterface implements SearchInterface {
 

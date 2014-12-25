@@ -1,4 +1,4 @@
-package com.stevenschoen.imagesearch;
+package com.stevenschoen.imagesearcher;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.koushikdutta.ion.Ion;
-import com.stevenschoen.imagesearch.model.ImageResult;
+import com.stevenschoen.imagesearcher.model.ImageResult;
 
 import java.util.List;
 
