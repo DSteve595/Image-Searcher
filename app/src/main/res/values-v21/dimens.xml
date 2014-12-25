@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fab_normal_size">56dp</dimen>
+    <dimen name="fab_normal_size_half">28dp</dimen>
+    <dimen name="fab_normal_size_half_negative">-28dp</dimen>
+    <dimen name="fab_mini_size">40dp</dimen>
+    <dimen name="fab_mini_size_half">20dp</dimen>
+    <dimen name="fab_mini_size_half_negative">-20dp</dimen>
+
+    <dimen name="fab_mini_size_half_difference">8dp</dimen>
+</resources>

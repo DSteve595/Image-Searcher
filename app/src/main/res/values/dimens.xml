@@ -1,0 +1,17 @@
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="fab_normal_size">64dp</dimen>
+    <dimen name="fab_normal_size_half">32dp</dimen>
+    <dimen name="fab_normal_size_half_negative">-32dp</dimen>
+    <dimen name="fab_mini_size">56dp</dimen>
+    <dimen name="fab_mini_size_half">28dp</dimen>
+    <dimen name="fab_mini_size_half_negative">-28dp</dimen>
+    <dimen name="fab_elevation">4dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="fab_mini_size_half_difference">0dp</dimen>
+
+    <dimen name="image_result_grid_height">80dp</dimen>
+</resources>
