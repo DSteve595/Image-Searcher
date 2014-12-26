@@ -15,5 +15,6 @@
     <string name="resolution">Resolution</string>
     <string name="size">Size</string>
     <string name="close">Close</string>
+    <string name="x_results">%s results</string>
 
 </resources>

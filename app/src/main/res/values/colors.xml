@@ -4,6 +4,6 @@
     <color name="primary_dark">#0288D1</color>
 
     <color name="accent">#40C4FF</color>
-    <color name="accent_focused">#75D3FF</color>
-    <color name="accent_pressed">#A8E4FF</color>
+    <color name="accent_light">#75D3FF</color>
+    <color name="accent_lighter">#A8E4FF</color>
 </resources>

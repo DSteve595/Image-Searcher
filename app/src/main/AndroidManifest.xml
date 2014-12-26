@@ -59,6 +59,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.stevenschoen.imagesearcher.MainActivity" />
         </activity>
+
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="36692b429b11251390b249d87ca5a0e10b3456cd" />
     </application>
 
 </manifest>

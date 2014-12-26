@@ -14,5 +14,5 @@ public interface SearchInterface {
     public static final String SEARCH_TYPE_IMAGE = "image";
 
     @GET("/v1")
-    public SearchResponse search(@Query("q") String query, @Query("searchType") String searchType);
+    public SearchResponse search(@Query("q") String query, @Query("start") int startIndex, @Query("searchType") String searchType);
 }

@@ -37,25 +37,55 @@
             android:singleLine="true" />
     </RelativeLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/main_holder_search"
-        android:layout_marginTop="16dp">
+        android:clipChildren="false"
+        android:orientation="vertical"
+        android:theme="@style/ImageSearch">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/main_imagesgrid"
+        <FrameLayout
+            android:id="@+id/main_resultscount_holder"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin" />
+            android:layout_height="48dp"
+            android:translationY="-48dp">
 
-        <ProgressBar
-            android:id="@+id/main_imagesloading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="true"
-            android:visibility="gone" />
-    </FrameLayout>
+            <TextView
+                android:id="@+id/main_resultscount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:elevation="1dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/abc_secondary_text_material_light"
+                android:textSize="16sp"
+                tools:text="7,000,000 results" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/main_imagesgrid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="16dp" />
+
+            <ProgressBar
+                android:id="@+id/main_imagesloading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:visibility="gone" />
+        </FrameLayout>
+    </LinearLayout>
 </RelativeLayout>

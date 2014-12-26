@@ -121,8 +121,8 @@ public class ResultActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_result, menu);
-
         return true;
     }
 
@@ -131,6 +131,7 @@ public class ResultActivity extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.menu_result_details:
                 showDetailsDialog();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
