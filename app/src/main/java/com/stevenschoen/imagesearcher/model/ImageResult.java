@@ -29,8 +29,7 @@ public class ImageResult implements Parcelable {
             dest.writeString(this.thumbnailLink);
         }
 
-        public Image() {
-        }
+        public Image() { }
 
         private Image(Parcel in) {
             this.height = in.readLong();

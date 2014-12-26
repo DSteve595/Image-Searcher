@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/imageresult_details_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:autoLink="web"
+        android:maxLines="4"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColorLink="?attr/colorAccent"
+        android:textIsSelectable="true"
+        tools:text="www.example.com/example.gif" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
+
+        <TableRow android:minHeight="40dp">
+
+            <de.ankri.views.AutoScaleTextView
+                android:layout_width="88dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/site"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <TextView
+                android:id="@+id/imageresult_details_site"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:autoLink="web"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textColorLink="?attr/colorAccent"
+                android:textIsSelectable="true"
+                tools:text="www.example.com" />
+        </TableRow>
+
+        <TableRow android:minHeight="40dp">
+
+            <de.ankri.views.AutoScaleTextView
+                android:layout_width="88dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/type"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <TextView
+                android:id="@+id/imageresult_details_type"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="image/gif" />
+        </TableRow>
+
+        <TableRow android:minHeight="40dp">
+
+            <de.ankri.views.AutoScaleTextView
+                android:layout_width="88dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/size"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <TextView
+                android:id="@+id/imageresult_details_size"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="10.5 MB" />
+        </TableRow>
+
+        <TableRow android:minHeight="40dp">
+
+            <de.ankri.views.AutoScaleTextView
+                android:layout_width="88dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/resolution"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <TextView
+                android:id="@+id/imageresult_details_resolution"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="1024 x 768" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

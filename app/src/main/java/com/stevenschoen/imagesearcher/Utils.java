@@ -6,6 +6,8 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 
+import java.util.Locale;
+
 public class Utils {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -21,6 +23,16 @@ public class Utils {
             floatingActionButton.setElevation(
                     floatingActionButton.getResources().getDimension(R.dimen.fab_elevation));
         }
+    }
+
+    public static String humanReadableByteCount(long bytes, boolean si) {
+        int unit = si ? 1000 : 1024;
+        if (bytes < unit)
+            return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = ("KMGTPE").charAt(exp - 1)
+                + "";
+        return String.format(Locale.US, "%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
     public static boolean hasLollipop() {

@@ -8,5 +8,12 @@
     <string name="version_x">Version %s</string>
     <string name="about_rate">Rate on the Play Store</string>
     <string name="about_github">View source on GitHub</string>
+    <string name="details">Details</string>
+    <string name="link">Link</string>
+    <string name="site">Site</string>
+    <string name="type">Type</string>
+    <string name="resolution">Resolution</string>
+    <string name="size">Size</string>
+    <string name="close">Close</string>
 
 </resources>

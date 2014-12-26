@@ -6,8 +6,13 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.stevenschoen.imagesearcher.model.ImageResult;
 
 import java.util.List;
@@ -19,6 +24,8 @@ public class ResultActivity extends ActionBarActivity {
     public static final String EXTRA_THUMBNAIL_BITMAP = "thumbnailBitmap";
 
     public static final String EXTRA_RESULT_IMAGE_RESULT = "imageResult";
+
+    private ViewPager pager;
 
     private List<ImageResult> images;
     private int imagePosition;
@@ -37,7 +44,7 @@ public class ResultActivity extends ActionBarActivity {
             finish();
         }
 
-        final ViewPager pager = (ViewPager) findViewById(R.id.imageresult_pager_pager);
+        pager = (ViewPager) findViewById(R.id.imageresult_pager_pager);
         final PublicFragmentPagerAdapter pagerAdapter = new PublicFragmentPagerAdapter(getFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -74,13 +81,59 @@ public class ResultActivity extends ActionBarActivity {
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ResultFragment fragment = (ResultFragment)
-                        pagerAdapter.getFragmentAtPosition(pager, pager.getCurrentItem());
-
-                final ImageResult imageResult = fragment.getImageResult();
-                finishWithResult(imageResult);
+                finishWithResult(getCurrentImageResult());
             }
         });
+    }
+
+    public ImageResult getCurrentImageResult() {
+        return images.get(pager.getCurrentItem());
+    }
+
+    private void showDetailsDialog() {
+        ImageResult imageResult = getCurrentImageResult();
+
+        MaterialDialog dialog = new MaterialDialog.Builder(this)
+                .title(imageResult.title)
+                .customView(R.layout.imageresult_details)
+                .neutralText(R.string.close)
+                .theme(Theme.DARK)
+                .build();
+
+        TextView linkText = (TextView) dialog.getCustomView().findViewById(R.id.imageresult_details_link);
+        linkText.setText(imageResult.link);
+
+        TextView siteText = (TextView) dialog.getCustomView().findViewById(R.id.imageresult_details_site);
+        siteText.setText(imageResult.displayLink);
+
+        TextView typeText = (TextView) dialog.getCustomView().findViewById(R.id.imageresult_details_type);
+        typeText.setText(imageResult.mime);
+
+        TextView sizeText = (TextView) dialog.getCustomView().findViewById(R.id.imageresult_details_size);
+        sizeText.setText(Utils.humanReadableByteCount(imageResult.image.byteSize, false));
+
+        TextView resolutionText = (TextView) dialog.getCustomView().findViewById(R.id.imageresult_details_resolution);
+        String resolution = imageResult.image.width + " x " + imageResult.image.height;
+        resolutionText.setText(resolution);
+
+        dialog.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_result, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_result_details:
+                showDetailsDialog();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void finishWithResult(ImageResult imageResult) {
