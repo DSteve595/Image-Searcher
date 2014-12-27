@@ -207,7 +207,7 @@ public class MainActivity extends ActionBarActivity {
                     if (result.items != null) {
                         for (int i = 0; i < result.items.length; i++) {
                             int index = resultStartIndex + i - 1;
-                            if (index == images.size()) {
+                            if (index >= images.size()) {
                                 images.add(result.items[i]);
                                 imagesAdapter.notifyItemInserted(index);
                             } else {
