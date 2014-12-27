@@ -56,12 +56,11 @@ public class ResultFragment extends Fragment {
         }
 
         final ImageView image = (ImageView) view.findViewById(R.id.imageresult_full_image);
-        Ion.with(getActivity()).load(result.link).asBitmap().setCallback(new FutureCallback<Bitmap>() {
+        image.setAlpha(0f);
+        Ion.with(getActivity()).load(result.link).intoImageView(image)
+                .withBitmapInfo().setCallback(new FutureCallback<ImageViewBitmapInfo>() {
             @Override
-            public void onCompleted(Exception e, Bitmap result) {
-                image.setVisibility(View.VISIBLE);
-                image.setImageBitmap(result);
-                image.setAlpha(0f);
+            public void onCompleted(Exception e, ImageViewBitmapInfo result) {
                 image.animate().alpha(1f).setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
