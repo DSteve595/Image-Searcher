@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
@@ -134,6 +135,8 @@ public class MainActivity extends ActionBarActivity {
                 return true;
             }
         });
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     @Override
