@@ -173,6 +173,7 @@ public class MainActivity extends ActionBarActivity {
                     return searchInterface.search(query, startIndex, SearchInterface.SEARCH_TYPE_IMAGE);
                 } catch (final RetrofitError e) {
                     e.printStackTrace();
+                    Crashlytics.logException(e);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
