@@ -27,8 +27,8 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.stevenschoen.imagesearcher.model.ImageResult;
-import com.stevenschoen.imagesearcher.model.SearchResponse;
+import com.stevenschoen.imagesearcher.model.Image;
+import com.stevenschoen.imagesearcher.model.Search;
 
 import org.apache.commons.io.FileUtils;
 
@@ -36,70 +36,58 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
-import retrofit.RequestInterceptor;
-import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
 public class MainActivity extends ActionBarActivity {
 
+    private static final String STATE_SEARCH = "search";
     private static final String STATE_IMAGES = "images";
-    private static final String STATE_RESULTS_COUNT = "resultsCount";
-
-    private static final int MAX_START_INDEX = 31;
 
     private SearchInterface searchInterface;
+    private SearchInterface.Service searchService;
 
-    private long resultsCount = -1;
+    private Search currentSearch;
 
     private RecyclerView imagesGrid;
     private ImagesAdapter imagesAdapter;
-    private ArrayList<ImageResult> images = new ArrayList<>();
+    private ArrayList<Image> images;
 
     private ProgressBar imagesLoading;
     private TextView resultsCountText;
     private View resultsCountHolder;
 
-    public boolean fakeRequests = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Crashlytics.getInstance().setDebugMode(BuildConfig.DEBUG);
-        Crashlytics.start(this);
+        if (!BuildConfig.DEBUG) {
+            Crashlytics.start(this);
+        }
         setContentView(R.layout.main);
 
-        if (fakeRequests && BuildConfig.DEBUG) {
-            searchInterface = new FakeSearchInterface();
-        } else {
-            RestAdapter.Builder restAdapterBuilder = new RestAdapter.Builder()
-                    .setEndpoint(SearchInterface.BASE_URL)
-                    .setLogLevel(RestAdapter.LogLevel.BASIC)
-                    .setRequestInterceptor(new RequestInterceptor() {
-                        @Override
-                        public void intercept(RequestFacade request) {
-                            request.addQueryParam("key", SearchInterface.API_KEY);
-                            request.addQueryParam("cx", SearchInterface.CUSTOM_SEARCH_ID);
-                        }
-                    });
-            RestAdapter restAdapter = restAdapterBuilder.build();
-            searchInterface = restAdapter.create(SearchInterface.class);
-        }
+        searchService = SearchInterface.Service.Google;
+        searchInterface = new SearchInterface(searchService);
 
         if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(STATE_SEARCH)) {
+                currentSearch = savedInstanceState.getParcelable(STATE_SEARCH);
+            }
             if (savedInstanceState.containsKey(STATE_IMAGES)) {
                 images = savedInstanceState.getParcelableArrayList(STATE_IMAGES);
             }
-            if (savedInstanceState.containsKey(STATE_RESULTS_COUNT)) {
-                resultsCount = savedInstanceState.getLong(STATE_RESULTS_COUNT);
-            }
+        }
+
+        if (images == null) {
+            images = new ArrayList<>();
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
         imagesGrid = (RecyclerView) findViewById(R.id.main_imagesgrid);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 4);
+        imagesGrid.setItemAnimator(null);
+        final RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 4);
         imagesGrid.setLayoutManager(layoutManager);
         imagesAdapter = new ImagesAdapter(images);
         imagesAdapter.setOnItemClickListener(new ImagesAdapter.OnItemClickListener() {
@@ -113,6 +101,12 @@ public class MainActivity extends ActionBarActivity {
                 finishWithResult(images.get(position));
             }
         });
+        imagesAdapter.setMoreImagesCallback(new ImagesAdapter.MoreImagesCallback() {
+            @Override
+            public void onMoreImagesPressed() {
+                nextPageAsync();
+            }
+        });
         imagesGrid.setAdapter(imagesAdapter);
 
         imagesLoading = (ProgressBar) findViewById(R.id.main_imagesloading);
@@ -120,7 +114,7 @@ public class MainActivity extends ActionBarActivity {
         resultsCountText = (TextView) findViewById(R.id.main_resultscount);
         resultsCountHolder = findViewById(R.id.main_resultscount_holder);
         resultsCountHolder.animate().setInterpolator(new DecelerateInterpolator());
-        if (resultsCount != -1) {
+        if (currentSearch != null && currentSearch.totalResults != -1) {
             updateResultsCount(false);
         }
 
@@ -128,11 +122,11 @@ public class MainActivity extends ActionBarActivity {
         searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                int oldSize = images.size();
-                images.clear();
-                imagesAdapter.notifyItemRangeRemoved(0, oldSize);
-                searchAsync(v.getText().toString(), 1);
-                return true;
+                if (event == null || event.getAction() == KeyEvent.ACTION_DOWN) {
+                    searchAsync(v.getText().toString());
+                    return true;
+                }
+                return false;
             }
         });
 
@@ -158,19 +152,18 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void searchAsync(final String query, final int startIndex) {
-        new AsyncTask<Void, Void, SearchResponse>() {
+    private void searchAsync(final String query) {
+        new AsyncTask<Void, Void, Search>() {
             @Override
             protected void onPreExecute() {
-                if (images.isEmpty()) {
-                    imagesLoading.setVisibility(View.VISIBLE);
-                }
+                notifyAdapterEmpty();
+                imagesLoading.setVisibility(View.VISIBLE);
             }
 
             @Override
-            protected SearchResponse doInBackground(Void... nothing) {
+            protected Search doInBackground(Void... nothing) {
                 try {
-                    return searchInterface.search(query, startIndex, SearchInterface.SEARCH_TYPE_IMAGE);
+                    return searchInterface.searchImages(query);
                 } catch (final RetrofitError e) {
                     e.printStackTrace();
                     Crashlytics.logException(e);
@@ -186,39 +179,20 @@ public class MainActivity extends ActionBarActivity {
             }
 
             @Override
-            protected void onPostExecute(SearchResponse result) {
+            protected void onPostExecute(Search search) {
+                currentSearch = search;
                 imagesLoading.setVisibility(View.GONE);
-                if (result != null) {
-                    if (result.searchInformation != null) {
-                        resultsCount = result.searchInformation.totalResults;
+                if (search != null) {
+                    if (search.totalResults != -1) {
                         updateResultsCount(true);
                     } else {
                         hideResultsCount(true);
                     }
 
-                    SearchResponse.Queries.Page currentPage = result.queries.getRequest();
-                    SearchResponse.Queries.Page nextPage = result.queries.getNextPage();
-                    int resultStartIndex = startIndex;
-
-                    // TODO better page loading
-                    if (currentPage != null && nextPage != null &&
-                            resultStartIndex < MAX_START_INDEX &&
-                            (nextPage.startIndex + nextPage.count < result.searchInformation.totalResults)) {
-                        searchAsync(query, nextPage.startIndex);
-                        resultStartIndex = currentPage.startIndex;
-                    }
-
-                    if (result.items != null) {
-                        for (int i = 0; i < result.items.length; i++) {
-                            int index = resultStartIndex + i - 1;
-                            if (index >= images.size()) {
-                                images.add(result.items[i]);
-                                imagesAdapter.notifyItemInserted(index);
-                            } else {
-                                images.set(index, result.items[i]);
-                                imagesAdapter.notifyItemChanged(index);
-                            }
-                        }
+                    if (search.images != null) {
+                        notifyAdapterEmpty();
+                        images.addAll(search.images);
+                        imagesAdapter.notifyItemRangeInserted(0, search.images.size());
                     }
                 } else {
                     hideResultsCount(true);
@@ -227,8 +201,38 @@ public class MainActivity extends ActionBarActivity {
         }.execute();
     }
 
+    private void nextPageAsync() {
+        if (currentSearch != null) {
+            new AsyncTask<Void, Void, Search>() {
+                @Override
+                protected Search doInBackground(Void... params) {
+                    return searchInterface.nextPage(currentSearch, currentSearch.images.size());
+                }
+
+                @Override
+                protected void onPostExecute(Search search) {
+                    currentSearch = search;
+
+                    if (search.images != null) {
+                        int oldSize = images.size();
+                        List<Image> subList = search.images.subList(oldSize, search.images.size());
+                        images.addAll(oldSize, subList);
+                        imagesAdapter.notifyItemRangeInserted(oldSize, subList.size());
+                    }
+                }
+            }.execute();
+        }
+    }
+
+    private void notifyAdapterEmpty() {
+        int oldSize = images.size();
+        int offset = images.isEmpty() ? 0 : 1;
+        images.clear();
+        imagesAdapter.notifyItemRangeRemoved(0, oldSize + offset);
+    }
+
     private void updateResultsCount(boolean animate) {
-        String friendlyCount = new DecimalFormat().format(resultsCount);
+        String friendlyCount = new DecimalFormat().format(currentSearch.totalResults);
         resultsCountText.setText(getString(R.string.x_results, friendlyCount));
         showResultsCount(animate);
     }
@@ -252,7 +256,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void openImageResult(final int position, final View viewToZoomFrom) {
-        Ion.with(this).load(images.get(position).image.thumbnailLink).asBitmap().setCallback(new FutureCallback<Bitmap>() {
+        Ion.with(this).load(images.get(position).thumbnailLink).asBitmap().setCallback(new FutureCallback<Bitmap>() {
             @Override
             public void onCompleted(Exception e, Bitmap result) {
                 Intent resultIntent = new Intent(MainActivity.this, ResultActivity.class);
@@ -274,12 +278,12 @@ public class MainActivity extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-            final ImageResult imageResult = data.getParcelableExtra(ResultActivity.EXTRA_RESULT_IMAGE_RESULT);
-            finishWithResult(imageResult);
+            final Image image = data.getParcelableExtra(ResultActivity.EXTRA_RESULT_IMAGE_RESULT);
+            finishWithResult(image);
         }
     }
 
-    private void finishWithResult(final ImageResult imageResult) {
+    private void finishWithResult(final Image imageResult) {
         File destinationFolder = new File(getFilesDir(), "result");
         destinationFolder.mkdir();
         try {
@@ -300,7 +304,7 @@ public class MainActivity extends ActionBarActivity {
 
                 Intent intent = new Intent();
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                intent.setDataAndType(uri, imageResult.mime);
+                intent.setDataAndType(uri, imageResult.mimeType);
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -311,7 +315,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
+        outState.putParcelable(STATE_SEARCH, currentSearch);
         outState.putParcelableArrayList(STATE_IMAGES, images);
-        outState.putLong(STATE_RESULTS_COUNT, resultsCount);
     }
 }

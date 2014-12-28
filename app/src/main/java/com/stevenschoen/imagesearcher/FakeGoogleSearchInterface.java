@@ -1,15 +1,14 @@
 package com.stevenschoen.imagesearcher;
 
-import com.stevenschoen.imagesearcher.model.ImageResult;
-import com.stevenschoen.imagesearcher.model.SearchResponse;
+import com.stevenschoen.imagesearcher.model.google.GoogleImage;
+import com.stevenschoen.imagesearcher.model.google.GoogleSearchResponse;
 
-public class FakeSearchInterface implements SearchInterface {
+public class FakeGoogleSearchInterface {
 
     private static final int ITEMS_COUNT = 10;
 
-    @Override
-    public SearchResponse search(String query, int startIndex, String searchType) {
-        SearchResponse response = new SearchResponse();
+    public GoogleSearchResponse search() {
+        GoogleSearchResponse response = new GoogleSearchResponse();
 
         makeItems(response);
         makeQueries(response);
@@ -24,16 +23,16 @@ public class FakeSearchInterface implements SearchInterface {
         return response;
     }
 
-    private void makeItems(SearchResponse response) {
-        ImageResult[] items = new ImageResult[ITEMS_COUNT];
+    private void makeItems(GoogleSearchResponse response) {
+        GoogleImage[] items = new GoogleImage[ITEMS_COUNT];
 
         for (int i = 0; i < items.length; i++) {
-            ImageResult result = new ImageResult();
+            GoogleImage result = new GoogleImage();
             result.title = "Test result " + i;
             result.link = "http://www.breastcancerwellness.org/bcw/wp-content/uploads/2014/09/test.gif";
             result.displayLink = "www.test.com";
             result.mime = "image/gif";
-            result.image = new ImageResult.Image();
+            result.image = new GoogleImage.Image();
             result.image.height = 828;
             result.image.width = 1646;
             result.image.byteSize = 22544;
@@ -45,10 +44,10 @@ public class FakeSearchInterface implements SearchInterface {
         response.items = items;
     }
 
-    private void makeQueries(SearchResponse response) {
-        SearchResponse.Queries queries = new SearchResponse.Queries();
+    private void makeQueries(GoogleSearchResponse response) {
+        GoogleSearchResponse.GoogleQueries queries = new GoogleSearchResponse.GoogleQueries();
 
-        SearchResponse.Queries.Page currentPage = new SearchResponse.Queries.Page();
+        GoogleSearchResponse.GoogleQueries.GooglePage currentPage = new GoogleSearchResponse.GoogleQueries.GooglePage();
         currentPage.count = ITEMS_COUNT;
         currentPage.startIndex = 1;
         queries.request[0] = currentPage;
@@ -56,8 +55,8 @@ public class FakeSearchInterface implements SearchInterface {
         response.queries = queries;
     }
 
-    private void makeSearchInformation(SearchResponse response) {
-        SearchResponse.SearchInformation searchInformation = new SearchResponse.SearchInformation();
+    private void makeSearchInformation(GoogleSearchResponse response) {
+        GoogleSearchResponse.GoogleSearchInformation searchInformation = new GoogleSearchResponse.GoogleSearchInformation();
 
         searchInformation.totalResults = 7000000;
 

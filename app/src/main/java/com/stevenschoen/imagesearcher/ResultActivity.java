@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
-import com.stevenschoen.imagesearcher.model.ImageResult;
+import com.stevenschoen.imagesearcher.model.Image;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class ResultActivity extends ActionBarActivity {
 
     private ViewPager pager;
 
-    private List<ImageResult> images;
+    private List<Image> images;
     private int imagePosition;
     private Bitmap thumbnailBitmap;
 
@@ -86,12 +86,12 @@ public class ResultActivity extends ActionBarActivity {
         });
     }
 
-    public ImageResult getCurrentImageResult() {
+    public Image getCurrentImageResult() {
         return images.get(pager.getCurrentItem());
     }
 
     private void showDetailsDialog() {
-        ImageResult imageResult = getCurrentImageResult();
+        Image imageResult = getCurrentImageResult();
 
         MaterialDialog dialog = new MaterialDialog.Builder(this)
                 .title(imageResult.title)
@@ -107,13 +107,13 @@ public class ResultActivity extends ActionBarActivity {
         siteText.setText(imageResult.displayLink);
 
         TextView typeText = (TextView) dialog.getCustomView().findViewById(R.id.imageresult_details_type);
-        typeText.setText(imageResult.mime);
+        typeText.setText(imageResult.mimeType);
 
         TextView sizeText = (TextView) dialog.getCustomView().findViewById(R.id.imageresult_details_size);
-        sizeText.setText(Utils.humanReadableByteCount(imageResult.image.byteSize, false));
+        sizeText.setText(Utils.humanReadableByteCount(imageResult.size, false));
 
         TextView resolutionText = (TextView) dialog.getCustomView().findViewById(R.id.imageresult_details_resolution);
-        String resolution = imageResult.image.width + " x " + imageResult.image.height;
+        String resolution = imageResult.width + " x " + imageResult.height;
         resolutionText.setText(resolution);
 
         dialog.show();
@@ -137,7 +137,7 @@ public class ResultActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void finishWithResult(ImageResult imageResult) {
+    private void finishWithResult(Image imageResult) {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_RESULT_IMAGE_RESULT, imageResult);
 

@@ -1,9 +1,9 @@
-package com.stevenschoen.imagesearcher.model;
+package com.stevenschoen.imagesearcher.model.google;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ImageResult implements Parcelable {
+public class GoogleImage implements Parcelable {
     public String title;
     public String link;
     public String displayLink;
@@ -63,10 +63,10 @@ public class ImageResult implements Parcelable {
         dest.writeParcelable(this.image, 0);
     }
 
-    public ImageResult() {
+    public GoogleImage() {
     }
 
-    private ImageResult(Parcel in) {
+    private GoogleImage(Parcel in) {
         this.title = in.readString();
         this.link = in.readString();
         this.displayLink = in.readString();
@@ -74,13 +74,13 @@ public class ImageResult implements Parcelable {
         this.image = in.readParcelable(Image.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<ImageResult> CREATOR = new Parcelable.Creator<ImageResult>() {
-        public ImageResult createFromParcel(Parcel source) {
-            return new ImageResult(source);
+    public static final Parcelable.Creator<GoogleImage> CREATOR = new Parcelable.Creator<GoogleImage>() {
+        public GoogleImage createFromParcel(Parcel source) {
+            return new GoogleImage(source);
         }
 
-        public ImageResult[] newArray(int size) {
-            return new ImageResult[size];
+        public GoogleImage[] newArray(int size) {
+            return new GoogleImage[size];
         }
     };
 }

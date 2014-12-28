@@ -13,14 +13,14 @@ import android.widget.ImageView;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.ImageViewBitmapInfo;
 import com.koushikdutta.ion.Ion;
-import com.stevenschoen.imagesearcher.model.ImageResult;
+import com.stevenschoen.imagesearcher.model.Image;
 
 public class ResultFragment extends Fragment {
 
     public static final String EXTRA_IMAGE_RESULT = "imageResult";
     public static final String EXTRA_THUMBNAIL_BITMAP = "thumbnailBitmap";
 
-    private ImageResult result;
+    private Image result;
 
     private Bitmap thumbnailBitmap;
 
@@ -46,7 +46,7 @@ public class ResultFragment extends Fragment {
         if (thumbnailBitmap != null) {
             thumbnailImage.setImageBitmap(thumbnailBitmap);
         } else {
-            Ion.with(getActivity()).load(result.image.thumbnailLink).intoImageView(thumbnailImage)
+            Ion.with(getActivity()).load(result.thumbnailLink).intoImageView(thumbnailImage)
                     .withBitmapInfo().setCallback(new FutureCallback<ImageViewBitmapInfo>() {
                 @Override
                 public void onCompleted(Exception e, ImageViewBitmapInfo result) {
@@ -73,7 +73,7 @@ public class ResultFragment extends Fragment {
         return view;
     }
 
-    public ImageResult getImageResult() {
+    public Image getImageResult() {
         return result;
     }
 

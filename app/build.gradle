@@ -9,8 +9,8 @@ android {
         applicationId "com.stevenschoen.imagesearcher"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 3
-        versionName "0.2.1"
+        versionCode 5
+        versionName "0.3"
     }
 
     buildTypes {
@@ -30,6 +30,8 @@ dependencies {
     compile 'com.google.android.gms:play-services-base:6.5.+'
     compile 'commons-io:commons-io:2.4'
     compile 'com.squareup.retrofit:retrofit:1.8.0'
+    compile 'com.squareup.okhttp:okhttp:2.1.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.1.0'
     compile 'com.koushikdutta.ion:ion:2.0.2'
     compile 'com.github.chrisbanes.photoview:library:1.2.2'
 }

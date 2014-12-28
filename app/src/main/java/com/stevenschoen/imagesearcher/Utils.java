@@ -35,6 +35,11 @@ public class Utils {
         return String.format(Locale.US, "%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
+    public static String wrapInBingQuotes(String string) {
+//        Thanks, Microsoft. Super intuitive.
+        return "'" + string + "'";
+    }
+
     public static boolean hasLollipop() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
