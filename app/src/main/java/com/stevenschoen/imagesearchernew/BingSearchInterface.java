@@ -1,6 +1,6 @@
-package com.stevenschoen.imagesearcher;
+package com.stevenschoen.imagesearchernew;
 
-import com.stevenschoen.imagesearcher.model.bing.BingSearchResponse;
+import com.stevenschoen.imagesearchernew.model.bing.BingSearchResponse;
 
 import retrofit.http.GET;
 import retrofit.http.Query;

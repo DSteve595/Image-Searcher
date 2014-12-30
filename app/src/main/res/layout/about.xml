@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
-    tools:context="com.stevenschoen.imagesearcher.AboutActivity">
+    tools:context="com.stevenschoen.imagesearchernew.AboutActivity">
 
     <LinearLayout
         android:id="@+id/about_holder_title"

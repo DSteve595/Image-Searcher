@@ -1,4 +1,4 @@
-package com.stevenschoen.imagesearcher;
+package com.stevenschoen.imagesearchernew;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;

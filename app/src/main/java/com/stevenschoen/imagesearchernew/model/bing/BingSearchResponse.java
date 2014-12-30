@@ -1,4 +1,4 @@
-package com.stevenschoen.imagesearcher.model.bing;
+package com.stevenschoen.imagesearchernew.model.bing;
 
 public class BingSearchResponse {
     public BingInnerResponse d; // "What should we call the actual content that was asked for?

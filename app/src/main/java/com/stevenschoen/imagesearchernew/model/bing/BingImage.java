@@ -1,4 +1,4 @@
-package com.stevenschoen.imagesearcher.model.bing;
+package com.stevenschoen.imagesearchernew.model.bing;
 
 public class BingImage {
     public String Title;

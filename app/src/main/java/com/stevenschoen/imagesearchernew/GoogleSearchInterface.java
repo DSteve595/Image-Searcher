@@ -1,6 +1,6 @@
-package com.stevenschoen.imagesearcher;
+package com.stevenschoen.imagesearchernew;
 
-import com.stevenschoen.imagesearcher.model.google.GoogleSearchResponse;
+import com.stevenschoen.imagesearchernew.model.google.GoogleSearchResponse;
 
 import retrofit.http.GET;
 import retrofit.http.Query;

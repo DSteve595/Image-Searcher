@@ -1,4 +1,4 @@
-package com.stevenschoen.imagesearcher.model.google;
+package com.stevenschoen.imagesearchernew.model.google;
 
 public class GoogleSearchResponse {
     public GoogleImage[] items;

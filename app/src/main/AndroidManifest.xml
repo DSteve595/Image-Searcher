@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.stevenschoen.imagesearcher">
+    package="com.stevenschoen.imagesearchernew">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,7 +11,7 @@
         android:theme="@style/ImageSearch">
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.stevenschoen.imagesearcher.fileprovider"
+            android:authorities="com.stevenschoen.imagesearchernew.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -20,7 +20,7 @@
         </provider>
 
         <activity
-            android:name="com.stevenschoen.imagesearcher.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/ImageSearch.WhiteAccents.NoActionBar">
@@ -44,20 +44,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.stevenschoen.imagesearcher.ResultActivity"
-            android:parentActivityName="com.stevenschoen.imagesearcher.MainActivity"
+            android:name=".ResultActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/ImageSearch.Result">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.stevenschoen.imagesearcher.MainActivity" />
+                android:value=".MainActivity" />
         </activity>
         <activity
-            android:name="com.stevenschoen.imagesearcher.AboutActivity"
-            android:parentActivityName="com.stevenschoen.imagesearcher.MainActivity"
+            android:name=".AboutActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/ImageSearch.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.stevenschoen.imagesearcher.MainActivity" />
+                android:value=".MainActivity" />
         </activity>
 
         <meta-data

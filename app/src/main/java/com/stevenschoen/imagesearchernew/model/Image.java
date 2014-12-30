@@ -1,4 +1,4 @@
-package com.stevenschoen.imagesearcher.model;
+package com.stevenschoen.imagesearchernew.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

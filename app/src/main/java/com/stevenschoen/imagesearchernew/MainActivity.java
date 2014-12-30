@@ -1,4 +1,4 @@
-package com.stevenschoen.imagesearcher;
+package com.stevenschoen.imagesearchernew;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,8 +27,8 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.stevenschoen.imagesearcher.model.Image;
-import com.stevenschoen.imagesearcher.model.Search;
+import com.stevenschoen.imagesearchernew.model.Image;
+import com.stevenschoen.imagesearchernew.model.Search;
 
 import org.apache.commons.io.FileUtils;
 
@@ -299,7 +299,7 @@ public class MainActivity extends ActionBarActivity {
             public void onCompleted(Exception e, File result) {
                 Uri uri = FileProvider.getUriForFile(
                         MainActivity.this,
-                        "com.stevenschoen.imagesearcher.fileprovider",
+                        "com.stevenschoen.imagesearchernew.fileprovider",
                         destinationFile);
 
                 Intent intent = new Intent();

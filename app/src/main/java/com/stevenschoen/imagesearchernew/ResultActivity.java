@@ -1,4 +1,4 @@
-package com.stevenschoen.imagesearcher;
+package com.stevenschoen.imagesearchernew;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
-import com.stevenschoen.imagesearcher.model.Image;
+import com.stevenschoen.imagesearchernew.model.Image;
 
 import java.util.List;
 

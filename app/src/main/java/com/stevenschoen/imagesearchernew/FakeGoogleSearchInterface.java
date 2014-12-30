@@ -1,7 +1,7 @@
-package com.stevenschoen.imagesearcher;
+package com.stevenschoen.imagesearchernew;
 
-import com.stevenschoen.imagesearcher.model.google.GoogleImage;
-import com.stevenschoen.imagesearcher.model.google.GoogleSearchResponse;
+import com.stevenschoen.imagesearchernew.model.google.GoogleImage;
+import com.stevenschoen.imagesearchernew.model.google.GoogleSearchResponse;
 
 public class FakeGoogleSearchInterface {
 

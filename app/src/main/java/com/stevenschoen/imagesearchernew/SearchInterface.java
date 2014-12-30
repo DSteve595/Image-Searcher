@@ -1,16 +1,16 @@
-package com.stevenschoen.imagesearcher;
+package com.stevenschoen.imagesearchernew;
 
 import com.squareup.okhttp.Authenticator;
 import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import com.stevenschoen.imagesearcher.model.Image;
-import com.stevenschoen.imagesearcher.model.Search;
-import com.stevenschoen.imagesearcher.model.bing.BingImage;
-import com.stevenschoen.imagesearcher.model.bing.BingSearchResponse;
-import com.stevenschoen.imagesearcher.model.google.GoogleImage;
-import com.stevenschoen.imagesearcher.model.google.GoogleSearchResponse;
+import com.stevenschoen.imagesearchernew.model.Image;
+import com.stevenschoen.imagesearchernew.model.Search;
+import com.stevenschoen.imagesearchernew.model.bing.BingImage;
+import com.stevenschoen.imagesearchernew.model.bing.BingSearchResponse;
+import com.stevenschoen.imagesearchernew.model.google.GoogleImage;
+import com.stevenschoen.imagesearchernew.model.google.GoogleSearchResponse;
 
 import java.io.IOException;
 import java.net.Proxy;

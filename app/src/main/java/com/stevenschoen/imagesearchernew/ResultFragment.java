@@ -1,4 +1,4 @@
-package com.stevenschoen.imagesearcher;
+package com.stevenschoen.imagesearchernew;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.ImageViewBitmapInfo;
 import com.koushikdutta.ion.Ion;
-import com.stevenschoen.imagesearcher.model.Image;
+import com.stevenschoen.imagesearchernew.model.Image;
 
 public class ResultFragment extends Fragment {
 
