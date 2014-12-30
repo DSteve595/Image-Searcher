@@ -9,7 +9,7 @@ android {
         applicationId "com.stevenschoen.imagesearchernew"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 6
+        versionCode 7
         versionName "0.3"
     }
 
