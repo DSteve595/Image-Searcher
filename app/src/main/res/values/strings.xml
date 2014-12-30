@@ -17,5 +17,6 @@
     <string name="close">Close</string>
     <string name="x_results">%s results</string>
     <string name="select_service">Select service</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

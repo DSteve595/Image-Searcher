@@ -2,6 +2,7 @@ package com.stevenschoen.imagesearcher;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -24,6 +26,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -143,6 +146,9 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_main_selectservice:
+                showSelectServiceDialog();
+                return true;
             case R.id.menu_main_about:
                 Intent aboutIntent = new Intent(this, AboutActivity.class);
                 startActivity(aboutIntent);
@@ -253,6 +259,21 @@ public class MainActivity extends ActionBarActivity {
         } else {
             resultsCountHolder.setTranslationY(translationY);
         }
+    }
+
+    private void showSelectServiceDialog() {
+        MaterialDialog dialog = new MaterialDialog.Builder(this)
+                .title("Select a service")
+                .customView(R.layout.selectservice, false)
+                .neutralColor(Color.DKGRAY)
+                .neutralText(R.string.cancel)
+                .build();
+
+        RecyclerView list = (RecyclerView) dialog.getCustomView().findViewById(R.id.selectservice_list);
+        list.setLayoutManager(new LinearLayoutManager(this));
+        list.setAdapter(new ServiceAdapter());
+
+        dialog.show();
     }
 
     private void openImageResult(final int position, final View viewToZoomFrom) {

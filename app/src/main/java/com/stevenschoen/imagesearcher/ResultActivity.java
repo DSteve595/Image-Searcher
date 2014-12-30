@@ -94,10 +94,10 @@ public class ResultActivity extends ActionBarActivity {
         Image imageResult = getCurrentImageResult();
 
         MaterialDialog dialog = new MaterialDialog.Builder(this)
+                .theme(Theme.DARK)
                 .title(imageResult.title)
                 .customView(R.layout.imageresult_details)
                 .neutralText(R.string.close)
-                .theme(Theme.DARK)
                 .build();
 
         TextView linkText = (TextView) dialog.getCustomView().findViewById(R.id.imageresult_details_link);
