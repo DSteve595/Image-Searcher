@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@style/ImageSearch">
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="com.stevenschoen.imagesearchernew.FixedFileProvider"
             android:authorities="com.stevenschoen.imagesearchernew.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">

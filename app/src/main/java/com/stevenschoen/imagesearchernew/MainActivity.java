@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -297,7 +296,7 @@ public class MainActivity extends ActionBarActivity {
         Ion.with(this).load(imageResult.link).write(destinationFile).setCallback(new FutureCallback<File>() {
             @Override
             public void onCompleted(Exception e, File result) {
-                Uri uri = FileProvider.getUriForFile(
+                Uri uri = FixedFileProvider.getUriForFile(
                         MainActivity.this,
                         "com.stevenschoen.imagesearchernew.fileprovider",
                         destinationFile);
