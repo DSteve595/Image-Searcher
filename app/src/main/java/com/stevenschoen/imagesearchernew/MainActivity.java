@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -122,8 +123,10 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (event == null || event.getAction() == KeyEvent.ACTION_DOWN) {
-                    searchAsync(v.getText().toString());
-                    return true;
+                    if (!TextUtils.isEmpty(v.getText())) {
+                        searchAsync(v.getText().toString());
+                        return true;
+                    }
                 }
                 return false;
             }
